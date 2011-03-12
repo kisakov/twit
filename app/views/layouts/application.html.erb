@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Twitter App - <%= h(yield(:title) || "Untitled") %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag 'application' %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+
+    <div id="container">
+       <div id="header">
+      <div id="header_inner">
+        <%- if signed_in? -%>
+          <ul id="nav">
+            <li class="<%= 'active' if request.request_uri == '/' %>">
+              <%= link_to 'Home', root_url %></li>
+           <li class="<%= 'active' if controller.controller_name == 'direct_messages' %>">
+          <%= link_to "DM", direct_messages_url %></li>
+            <li>
+              <%= link_to 'Logout', session_url, :method => :delete %></li>
+          </ul>
+        <%- end -%>
+      </div>
+  </div>
+   
+      <div id="content">
+
+          <span style="color: #f00;"><%= flash[:notice] %></span>
+
+
+          <%- if show_title? -%>
+            <h2><%=h yield(:title) %></h2>
+          <%- end -%>
+
+          <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

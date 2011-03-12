@@ -1,0 +1,5 @@
+<% title "Direct messages" %>
+<span class="myheader">friends:</span><br />
+  <% @direct_messages.keys.each do |user| %>
+    <%= link_to h(user), :controller => :direct_messages, :action => :messages, :id => user  %><br />
+  <% end %>

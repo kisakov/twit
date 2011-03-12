@@ -1,0 +1,24 @@
+<% title "Index page" %>
+<div id="panel">
+   <%= image_tag(@user.profile_image_url).html_safe %> <h3>Welcome <%= link_to(@user.name, @user.url) %></h3><br />
+  <span class="myheader">friends</span>(<%= @friends.users.size %>):<br />
+    <% @friends.users.each do |friend| %>
+     <%= link_to image_tag(friend.profile_image_url, :size => "32x32"), "http://twitter.com/#{friend.screen_name}",
+      :target => "_blank", :title => friend.name %>
+    <% end %>
+  <br />
+  <span class="myheader">followers</span>(<%= @followers.users.size %>):<br />
+    <% @followers.users.each do |follower| %>
+      <%= link_to image_tag(follower.profile_image_url, :size => "32x32"), "http://twitter.com/#{follower.screen_name}",
+      :target => "_blank", :title => follower.name %>
+    <% end %>
+</div>
+
+<div id="cont">
+    <% @tweets.each do |tweet| %>
+      <%= "#{time_ago_in_words(tweet.created_at).capitalize} ago, <b>#{tweet.user.name}</b> said:" %>
+      <%= tweet.text %><br /><br />
+    <% end %>
+</div>
+
+<br style="clear: both;" />

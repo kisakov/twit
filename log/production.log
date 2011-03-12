@@ -1,0 +1,11 @@
+
+
+Processing StatusesController#refr (for 127.0.0.1 at 2011-03-13 00:59:04) [GET]
+Redirected to http://localhost:3000/statuses
+Completed in 46ms (DB: 0) | 302 Found [http://localhost/statuses/refr]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 00:59:04) [GET]
+Rendering template within layouts/application
+Rendering statuses/index
+Completed in 9834ms (View: 27, DB: 0) | 200 OK [http://localhost/statuses]

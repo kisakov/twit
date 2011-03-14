@@ -43,12 +43,11 @@ class DirectMessagesController < ApplicationController
     end
 
 
-    direct_messages.sort_by {|a| a.created_at}.reverse!
+    direct_messages.sort_by {|a| a.created_at = a.created_at[4..18] + a.created_at[25..29] }.reverse!
   end
 
   def index
-    @direct_messages = Rails.cache.fetch("#{session['user'].id}_friends") { DirectMessagesController.load_friends(client, session['user']) }
-    #@friends = DirectMessagesController.load_friends(client, session['user'])
+    @friends = Rails.cache.fetch("#{session['user'].id}_friends") { DirectMessagesController.load_friends(client, session['user']) }
   end
 
   def messages

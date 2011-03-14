@@ -5,7 +5,7 @@
      </div>
      <div class="text">
         <b><%= @msg.sender.screen_name %></b> said:<br /> <%= @msg.text %><br />
-        <%= @msg.created_at[4..18] %>
+        <%= @msg.created_at %>
         <% if @msg.message_type == "direct" %>
           <%= link_to "delete", :controller => :direct_messages, :action => :destroy, :id => params[:id], :msg_id => @msg.id %>
         <% end %>

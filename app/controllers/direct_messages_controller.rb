@@ -1,60 +1,81 @@
 class DirectMessagesController < ApplicationController
   before_filter :authenticate
 
-  #caches_page :index
-  caches_action :messages
-  
-  def index
-    @direct_messages = Hash.new
-    #dm = client.direct_messages | client.direct_messages_sent
+  def self.load_friends(client, user)
+    friends = Hash.new
 
-    (client.direct_messages | client.direct_messages_sent).each do |msg|
-      if client.user.screen_name == msg.recipient_screen_name
-        @direct_messages[msg.sender.screen_name] = @direct_messages[msg.sender.screen_name].to_a << msg
+    (client.direct_messages(:count => 200) | client.direct_messages_sent(:count => 200)).each do |msg|
+      if user.screen_name == msg.recipient_screen_name
+        friends[msg.sender.screen_name] = msg.sender
       else
-        @direct_messages[msg.recipient.screen_name] = @direct_messages[msg.recipient.screen_name].to_a << msg
+        friends[msg.recipient.screen_name] = msg.recipient
       end
     end
+    return friends
+  end
+
+  def self.load_messages(client, name, user)
+    direct_messages = Array.new
+
+    (client.direct_messages(:count => 200) | client.direct_messages_sent(:count => 200)).each do |msg|
+      if (( name == msg.sender.screen_name && user.screen_name == msg.recipient.screen_name ) ||
+          ( user.screen_name == msg.sender.screen_name && name == msg.recipient.screen_name ))
+        msg["message_type"] = "direct"
+        direct_messages << msg
+      end
+    end
+
+    client.mentions(:count => 200).each do |msg|
+      if name == msg.user.screen_name
+        msg["message_type"] = "mention"
+        msg["sender"] = msg["user"]
+        direct_messages << msg
+      end
+    end
+
+    time_line = client.user_timeline(user.screen_name, :count => 200)
+    time_line.each do |msg|
+      if name == msg.in_reply_to_screen_name
+        msg["message_type"] = "mention"
+        msg["sender"] = msg["user"]
+        direct_messages << msg
+      end
+    end
+
+
+    direct_messages.sort_by {|a| a.created_at}.reverse!
+  end
+
+  def index
+    @direct_messages = Rails.cache.fetch("#{session['user'].id}_friends") { DirectMessagesController.load_friends(client, session['user']) }
+    #@friends = DirectMessagesController.load_friends(client, session['user'])
   end
 
   def messages
-
     @name = params[:id]
-    @direct_messages = Hash.new
-    
-    (client.direct_messages | client.direct_messages_sent).each do |msg|
-      if client.user.screen_name == msg.recipient_screen_name
-        @direct_messages[msg.sender.screen_name] = @direct_messages[msg.sender.screen_name].to_a << msg if @name == msg.sender.screen_name
-      else
-        @direct_messages[msg.recipient.screen_name] = @direct_messages[msg.recipient.screen_name].to_a << msg if @name == msg.recipient.screen_name
-      end
-    end
-    
-    @arr=@direct_messages[@name].to_a
-    @direct_messages[@name]=@arr.sort_by {|a| a.id}.reverse!
-
+    @direct_messages = Rails.cache.fetch("#{session['user'].id}_direct_messages_#{params[:id]}") { DirectMessagesController.load_messages(client, params[:id], session['user']) }
   end
 
   def refr
-    expire_action :action => :messages, :id => params[:id]
+    Rails.cache.delete("#{session['user'].id}_direct_messages_#{params[:id]}")
     redirect_to :action => :messages, :id => params[:id]
   end
 
   def create
-
     client.direct_message_create(params[:id], params[:text])
     flash[:notice] = "The message will be sent to #{params[:id]}"
     redirect_to :action => :refr, :id => params[:id]
-    #@id_user = params[:id]
-    #@text = params[:text]
   end
 
   def destroy
     client.direct_message_destroy(params[:msg_id])
     flash[:notice] = "The message will be destroyed!"
     redirect_to :action => :refr, :id => params[:id]
-    #@id_user = params[:id]
-    #@text = params[:text]
+  end
+
+  def mentions
+    @time_line = client.user_timeline(session['user'].screen_name, :count => 200)
+    #@mentions = Twitter::Search.new.mentioning("DiTeam").fetch
   end
 
 end

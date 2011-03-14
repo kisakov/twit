@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def new
     @user = client.user if signed_in?
   end
@@ -8,12 +9,14 @@ class SessionsController < ApplicationController
     request_token = oauth_consumer.get_request_token(:oauth_callback => callback_session_url)
     session['request_token'] = request_token.token
     session['request_secret'] = request_token.secret
+    #session['client_id'] = client.user.id
     redirect_to request_token.authorize_url
   end
 
   def destroy
     #expire_page :controller => :direct_messages, :action => :index
     reset_session
+    #Rails.cache.clear
     redirect_to new_session_path
   end
 
@@ -25,6 +28,7 @@ class SessionsController < ApplicationController
     session['access_secret'] = access_token.secret
     user = client.verify_credentials
     sign_in(user)
+    session['user'] = client.user
     redirect_back_or root_path
   end
 end

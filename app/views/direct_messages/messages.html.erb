@@ -5,14 +5,13 @@
    <%- form_tag :controller => :direct_messages, :action => :create, :method => :post do -%>
          
           <%= hidden_field_tag 'id', params[:id] %>
-          <label for="text">Send <%= @name %> a message</label><br />
+          <label for="text">Send <%= @name %> a direct message</label><br />
           <%= text_area_tag 'text' %><br />
           <%= submit_tag 'Send' %>
     <%- end -%>
     <br />
-    <% @direct_messages[@name].each do |msg| %>
-      <div <% if client.user.screen_name != msg.recipient_screen_name %> style="text-align: right;" <% end %>>
-        <%= msg.sender.screen_name %>: <%= msg.text %> <%= link_to "delete", :action => :destroy, :id => params[:id], :msg_id => msg.id %></div>
+    <% @direct_messages.each do |@msg| %>
+        <%= render :partial => 'statuses/tweet', :object => @msg %>
     <% end %>
   <% else %>
     У вас нет сообщений от такого пользователя

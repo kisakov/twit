@@ -9,3 +9,101 @@ Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 00:59:04) [GET]
 Rendering template within layouts/application
 Rendering statuses/index
 Completed in 9834ms (View: 27, DB: 0) | 200 OK [http://localhost/statuses]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 15:11:11) [GET]
+Rendering template within layouts/application
+Rendering /sessions/new (unauthorized)
+Filter chain halted as [:authenticate] rendered_or_redirected.
+Completed in 18ms (View: 3, DB: 0) | 401 Unauthorized [http://localhost/]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-03-13 15:11:12) [POST]
+  Parameters: {"x"=>"51", "y"=>"12", "authenticity_token"=>"Rg3tsY7uoj3qAPzC8SCqx+XaHe+lo2Ctuym50/1OR/w="}
+Redirected to http://api.twitter.com/oauth/authorize?oauth_token=4QuTecHHgfahl0sDEvXMn2a55S04fcIDIytCkqABww
+Completed in 449ms (DB: 0) | 302 Found [http://localhost/session]
+
+
+Processing SessionsController#callback (for 127.0.0.1 at 2011-03-13 15:11:20) [GET]
+  Parameters: {"oauth_token"=>"4QuTecHHgfahl0sDEvXMn2a55S04fcIDIytCkqABww", "oauth_verifier"=>"HLxMDfnwsFJpfq3YQN73XD5458p5dGq4gIcgBeYgk"}
+Redirected to http://localhost:3000/
+Completed in 1532ms (DB: 0) | 302 Found [http://localhost/session/callback?oauth_token=4QuTecHHgfahl0sDEvXMn2a55S04fcIDIytCkqABww&oauth_verifier=HLxMDfnwsFJpfq3YQN73XD5458p5dGq4gIcgBeYgk]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 15:11:22) [GET]
+Rendering template within layouts/application
+Rendering statuses/index
+Completed in 14107ms (View: 29, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:11:40) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 9680ms (View: 5, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 15:11:52) [GET]
+Rendering template within layouts/application
+Rendering statuses/index
+Completed in 5086ms (View: 66, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:12:25) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 13567ms (View: 3, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing StatusesController#index (for 127.0.0.1 at 2011-03-13 15:12:40) [GET]
+Rendering template within layouts/application
+Rendering statuses/index
+Completed in 6885ms (View: 19, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:17:42) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 10621ms (View: 3, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:17:59) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 14446ms (View: 5, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:18:23) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 9378ms (View: 5, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:18:51) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 15137ms (View: 5, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:19:09) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 11714ms (View: 7, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:20:08) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 16081ms (View: 4, DB: 0) | 200 OK [http://localhost/direct_messages]
+
+
+Processing DirectMessagesController#messages (for 127.0.0.1 at 2011-03-13 15:20:29) [GET]
+  Parameters: {"id"=>"DiTeam"}
+Rendering template within layouts/application
+Rendering direct_messages/messages
+Completed in 16711ms (View: 1897, DB: 0) | 200 OK [http://localhost/direct_messages/messages/DiTeam]
+
+
+Processing DirectMessagesController#index (for 127.0.0.1 at 2011-03-13 15:20:48) [GET]
+Rendering template within layouts/application
+Rendering direct_messages/index
+Completed in 13960ms (View: 8, DB: 0) | 200 OK [http://localhost/direct_messages]

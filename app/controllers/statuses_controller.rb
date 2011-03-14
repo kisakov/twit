@@ -7,6 +7,7 @@ class StatusesController < ApplicationController
     @followers = client.followers
     @friends = client.friends
     @user = client.user
+
   end
 
 

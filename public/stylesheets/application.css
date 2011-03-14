@@ -110,3 +110,34 @@ a {
     font-weight: bolder;
     text-decoration: underline;
 }
+.messages
+{
+    width: 100%;
+   
+}
+.message
+{
+    width: 48%;
+    border: 1px solid gray;
+    background: #ddd;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+}
+    .message .image
+    {
+        float: left;
+        width: 20%;
+
+        text-align: center;
+    }
+    .message .text
+    {
+        float: right;
+        width: 80%;
+
+    }
+    .message .text a
+    {
+        color: #f00;
+    }

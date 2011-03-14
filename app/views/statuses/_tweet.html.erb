@@ -1,0 +1,15 @@
+ <div class="messages">
+   <div class="message" <% if session['user'].screen_name != @msg.sender.screen_name %> style="float: right;" <% end %>>
+     <div class="image">
+       <%=  image_tag(@msg.sender.profile_image_url) %><br/><%= @msg.message_type %>
+     </div>
+     <div class="text">
+        <b><%= @msg.sender.screen_name %></b> said:<br /> <%= @msg.text %><br />
+        <%= @msg.created_at[4..18] %>
+        <% if @msg.message_type == "direct" %>
+          <%= link_to "delete", :controller => :direct_messages, :action => :destroy, :id => params[:id], :msg_id => @msg.id %>
+        <% end %>
+     </div>
+   </div>
+   <div style="clear: both"></div>
+ </div>

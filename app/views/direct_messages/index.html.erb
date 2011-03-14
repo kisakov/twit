@@ -1,8 +1,7 @@
 <% title "Messages" %>
 
-<span class="myheader">friends:</span><br />
+<span class="myheader">friends</span><br />
   <% @friends.each_value do |user| %>
-     <%= link_to image_tag(user.profile_image_url) + user.screen_name, :controller => :direct_messages, :action => :messages, :id => user.screen_name,
-      :target => "_blank", :title => user.name %> &nbsp;
+     <%= link_to image_tag(user.profile_image_url) + user.screen_name, :controller => :direct_messages, :action => :messages, :id => user.screen_name %> &nbsp;
    
   <% end %>

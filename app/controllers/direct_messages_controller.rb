@@ -47,7 +47,8 @@ class DirectMessagesController < ApplicationController
   end
 
   def index
-    @friends = Rails.cache.fetch("#{session['user'].id}_friends") { DirectMessagesController.load_friends(client, session['user']) }
+    #@friends = Rails.cache.fetch("#{session['user'].id}_friends") { DirectMessagesController.load_friends(client, session['user']) }
+    @friends = DirectMessagesController.load_friends(client, session['user'])
   end
 
   def messages
